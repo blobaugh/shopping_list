@@ -94,6 +94,43 @@ class Shopping_List_CPT {
 			'type'			=> 'text_url',
 		) );
 	}
+
+	public function add_shortcode() {
+		/*
+		 * Enqueue the magical js sorting functionality
+		 */
+		wp_enqueue_script( 'mixitup', 'http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js?v=2.1.2', array( 'jquery' ) );
+		
+		/*
+		 * Get all of the shopping list items.
+		 * All statuses.
+		 * Use this for now until there are so many that it slows
+		 * the system down. Then we can switch to only non-purchased items
+		 */
+		$args = array(
+			'post_type'			=> $this->post_type,
+			'post_status'		=> array( 'pending', 'publish' ),
+			'posts_per_page'	=> -1,
+			// Performance optimization
+			'no_found_rows'		=> true,
+		);
+
+		$query = new WP_Query( $args );
+
+		if( $query->have_posts() ) {
+			/*
+			 * Get a listing of all of the taxonomy terms
+			 */
+			$terms = get_terms( $this->post_taxonomy, array( 'hide_empty' => 0 ) );
+
+			require_once( 'views/controls.php' );
+			require_once( 'views/items.php' );
+		} else {
+			echo '<p>No shopping list items found.</p>';
+		}
+
+		wp_reset_postdata();
+	}
 } // end class
 
 $shopping_list = new Shopping_List_CPT();
@@ -108,4 +145,10 @@ add_action( 'cmb2_init', function() {
 	global $shopping_list;
 
 	$shopping_list->cmb2_init();
+});
+
+add_action( 'init', function() {
+	global $shopping_list;
+
+	add_shortcode( 'shopping_list', array( $shopping_list, 'add_shortcode' ) );
 });
