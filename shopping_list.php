@@ -80,7 +80,7 @@ class Shopping_List_CPT {
 		 */
 		$cmb = new_cmb2_box( array(
 			'id'			=> 'link',
-			'title'			=> __( 'Link Details' ),
+			'title'			=> __( 'Details' ),
 			'object_types'	=> array( $this->post_type ),
 			'context'		=> 'normal',
 			'priority'		=> 'high',
@@ -92,6 +92,13 @@ class Shopping_List_CPT {
 			'desc'			=> __( 'URL to point the link to' ),
 			'id'			=> 'link_url',
 			'type'			=> 'text_url',
+		) );
+
+		$cmb->add_field( array(
+			'name'			=> __( 'Credit' ),
+			'desc'			=> __( 'Who purchased this' ),
+			'id'			=> 'link_credit',
+			'type'			=> 'text',
 		) );
 	}
 
