@@ -21,7 +21,7 @@
 		if( !empty( $link ) )
 			echo '</a>';
 
-		if( 'publish' == get_post_status( get_the_ID() ) ) {
+		if( 'publish' == get_post_status( get_the_ID() ) && !empty( get_post_meta( get_the_ID(), 'link_credit', true ) ) ) {
 			echo ' - Thanks ' . get_post_meta( get_the_ID(), 'link_credit', true );
 		}
 		echo '</div>';

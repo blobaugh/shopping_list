@@ -54,7 +54,8 @@ class Shopping_List_CPT {
 	 **/
 	private $args = array(
 				'public'		=> true,
-				'supports'		=> array( 'title' ),
+				'supports'		=> array( 'title', 'thumbnail' ),
+				'publicly_queryable'	=> false
 
 	);
 	
@@ -116,7 +117,7 @@ class Shopping_List_CPT {
 		 */
 		$args = array(
 			'post_type'			=> $this->post_type,
-			'post_status'		=> array( 'pending', 'publish' ),
+			'post_status'		=> array( 'pending' ),
 			'posts_per_page'	=> -1,
 			// Performance optimization
 			'no_found_rows'		=> true,

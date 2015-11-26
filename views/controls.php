@@ -1,5 +1,5 @@
 <div class="controls">
-	<label>Filter:</label>
+	<label>Click to Filter:</label>
 
 	<button class="filter" data-filter="all">All</button>
 
